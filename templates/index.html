@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crop Recommendation System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌱 AI Crop Recommendation System</h1>
+
+        <p class="subtitle">
+            Smart AI system that recommends the best crop based on soil nutrients and weather conditions.
+        </p>
+
+        <form action="/predict" method="post">
+
+            <label>Nitrogen (N)</label>
+            <input type="number" name="N" placeholder="Enter Nitrogen Value" required>
+
+            <label>Phosphorus (P)</label>
+            <input type="number" name="P" placeholder="Enter Phosphorus Value" required>
+
+            <label>Potassium (K)</label>
+            <input type="number" name="K" placeholder="Enter Potassium Value" required>
+
+            <label>Temperature (°C)</label>
+            <input type="number" step="any" name="temperature" placeholder="Enter Temperature" required>
+
+            <label>Humidity (%)</label>
+            <input type="number" step="any" name="humidity" placeholder="Enter Humidity" required>
+
+            <label>Soil pH</label>
+            <input type="number" step="any" name="ph" placeholder="Enter pH Value" required>
+
+            <label>Rainfall (mm)</label>
+            <input type="number" step="any" name="rainfall" placeholder="Enter Rainfall" required>
+
+            <button type="submit">Predict Crop</button>
+
+        </form>
+
+        {% if prediction_text %}
+        <div class="result-box">
+
+            <h2>{{ prediction_text }}</h2>
+
+            <h3>{{ confidence }}</h3>
+
+            {% if crop_image %}
+                <img src="{{ url_for('static', filename='images/' + crop_image) }}" width="220">
+            {% endif %}
+
+            <h3>{{ fertilizer }}</h3>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
